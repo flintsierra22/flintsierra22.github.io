@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>91短视频网页版-手机网页看短视频_在线刷短视频</title>
+<meta name="description" content="91短视频网页版首页：介绍网页端短视频浏览方式、内容分类与常见使用问题，手机与电脑打开网页即可浏览短视频内容，无需安装客户端。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310131a'/%3E%3Cpath d='M26 20l18 12-18 12z' fill='%23ff5a3c'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#0e1015;
+    --bg-soft:#151922;
+    --card:#1a1f2b;
+    --line:#2a3140;
+    --text:#eef1f6;
+    --muted:#9aa4b5;
+    --accent:#ff5a3c;
+    --accent-soft:rgba(255,90,60,.12);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 20px;}
+
+  /* ---------- header ---------- */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:rgba(14,16,21,.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;gap:18px;
+    min-height:64px;flex-wrap:wrap;
+  }
+  .logo{
+    display:flex;align-items:center;gap:10px;
+    font-size:17px;font-weight:700;letter-spacing:.3px;white-space:nowrap;
+  }
+  .logo .mark{
+    width:34px;height:34px;border-radius:10px;
+    background:linear-gradient(140deg,#ff7a4d,#ff3b28);
+    display:grid;place-items:center;flex:none;
+  }
+  .logo .mark svg{width:16px;height:16px;}
+  nav.main{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;}
+  nav.main a{
+    font-size:14px;color:var(--muted);padding:7px 12px;border-radius:999px;
+    transition:color .2s,background .2s;
+  }
+  nav.main a:hover{color:var(--text);background:var(--bg-soft);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    padding:56px 0 48px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(720px 320px at 82% 0%,rgba(255,90,60,.16),transparent 70%),
+      radial-gradient(560px 260px at 5% 100%,rgba(70,120,255,.10),transparent 70%);
+  }
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;color:var(--accent);
+    background:var(--accent-soft);
+    border:1px solid rgba(255,90,60,.28);
+    padding:5px 12px;border-radius:999px;margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(28px,4.6vw,46px);
+    line-height:1.2;font-weight:800;letter-spacing:-.5px;
+  }
+  .hero p.lead{
+    margin-top:16px;color:var(--muted);font-size:15.5px;max-width:36em;
+  }
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 22px;border-radius:999px;font-size:15px;font-weight:600;
+    border:1px solid transparent;cursor:pointer;transition:transform .15s,background .2s;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:#ff6f52;}
+  .btn-ghost{border-color:var(--line);color:var(--text);background:var(--bg-soft);}
+  .btn-ghost:hover{border-color:#3b4457;}
+  .btn[aria-disabled="true"]{opacity:.85;pointer-events:none;}
+
+  .hero-visual{
+    position:relative;border-radius:22px;overflow:hidden;
+    border:1px solid var(--line);
+    background:linear-gradient(160deg,#1d2330,#12151d);
+    padding:18px;
+  }
+  .screen{
+    border-radius:14px;background:#0b0d12;border:1px solid #232a37;
+    overflow:hidden;
+  }
+  .screen .top{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid #1d2330;}
+  .screen .top i{width:8px;height:8px;border-radius:50%;background:#394152;display:block;}
+  .screen .top i:first-child{background:var(--accent);}
+  .screen .frame{
+    aspect-ratio:16/10;display:grid;place-items:center;
+    background:radial-gradient(circle at 50% 45%,rgba(255,90,60,.20),transparent 62%);
+  }
+  .screen .frame .play{
+    width:64px;height:64px;border-radius:50%;
+    background:rgba(255,90,60,.16);border:1px solid rgba(255,90,60,.5);
+    display:grid;place-items:center;
+  }
+  .screen .frame .play svg{width:24px;height:24px;}
+  .screen .meta{display:flex;gap:8px;padding:12px;}
+  .pill{height:8px;border-radius:4px;background:#242b39;flex:1;}
+  .pill.short{flex:.5;background:#2f3747;}
+
+  /* ---------- sections ---------- */
+  section{padding:56px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-head{max-width:44em;margin-bottom:30px;}
+  .sec-head .tag{
+    font-size:12.5px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--accent);font-weight:700;
+  }
+  h2{font-size:clamp(21px,2.6vw,27px);margin-top:8px;line-height:1.35;font-weight:700;}
+  .sec-head p{color:var(--muted);font-size:15px;margin-top:10px;}
+
+  /* feature cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;transition:border-color .2s,transform .2s;
+  }
+  .card:hover{border-color:#3a4557;transform:translateY(-2px);}
+  .card .ico{
+    width:40px;height:40px;border-radius:11px;display:grid;place-items:center;
+    background:var(--accent-soft);border:1px solid rgba(255,90,60,.25);margin-bottom:14px;
+  }
+  .card .ico svg{width:19px;height:19px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+  .card h3{font-size:16.5px;margin-bottom:8px;font-weight:700;}
+  .card p{font-size:14.5px;color:var(--muted);}
+
+  /* categories */
+  .cats{display:flex;flex-wrap:wrap;gap:10px;}
+  .cat{
+    font-size:14px;padding:9px 16px;border-radius:999px;
+    background:var(--bg-soft);border:1px solid var(--line);color:var(--muted);
+    cursor:pointer;transition:all .18s;
+  }
+  .cat:hover{color:var(--text);border-color:#3a4557;}
+  .cat.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
+  .cat-note{font-size:13.5px;color:var(--muted);margin-top:16px;}
+
+  /* two column text */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:34px;}
+  .two-col h3{font-size:17px;margin-bottom:10px;}
+  .two-col p{font-size:14.8px;color:var(--muted);margin-bottom:14px;}
+  .two-col p:last-child{margin-bottom:0;}
+
+  /* qa list */
+  .qa{display:grid;gap:0;border-top:1px solid var(--line);}
+  .qa details{border-bottom:1px solid var(--line);padding:16px 0;}
+  .qa summary{
+    cursor:pointer;list-style:none;font-size:15.5px;font-weight:600;
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+  }
+  .qa summary::-webkit-details-marker{display:none;}
+  .qa summary::after{content:"+";color:var(--accent);font-size:20px;line-height:1;flex:none;}
+  .qa details[open] summary::after{content:"–";}
+  .qa p{font-size:14.6px;color:var(--muted);margin-top:10px;}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:s;}
+  .step{
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;position:relative;
+  }
+  .step::before{
+    counter-increment:s;content:"0" counter(s);
+    font-size:26px;font-weight:800;color:rgba(255,90,60,.42);display:block;margin-bottom:8px;
+  }
+  .step h3{font-size:16px;margin-bottom:8px;}
+  .step p{font-size:14.4px;color:var(--muted);}
+
+  /* footer */
+  footer{padding:40px 0 34px;background:var(--bg-soft);}
+  .foot-inner{display:flex;gap:24px;justify-content:space-between;flex-wrap:wrap;align-items:flex-start;}
+  .foot-brand{font-size:15px;font-weight:700;}
+  .foot-brand span{display:block;font-size:13px;color:var(--muted);font-weight:400;margin-top:6px;max-width:26em;}
+  .foot-links{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);}
+  .foot-links a:hover{color:var(--text);}
+  .copy{width:100%;border-top:1px solid var(--line);margin-top:24px;padding-top:18px;font-size:13px;color:#79818f;}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:30px;}
+    .hero-visual{order:2;}
+    .cards{grid-template-columns:1fr 1fr;}
+    .two-col{grid-template-columns:1fr;gap:26px;}
+    .steps{grid-template-columns:1fr;}
+  }
+  @media (max-width:620px){
+    .nav-inner{min-height:auto;padding:12px 0;}
+    nav.main{margin-left:0;width:100%;overflow-x:auto;flex-wrap:nowrap;}
+    nav.main a{white-space:nowrap;font-size:13.5px;padding:6px 10px;}
+    .hero{padding:38px 0 34px;}
+    .cards{grid-template-columns:1fr;}
+    section{padding:40px 0;}
+    .btn{padding:11px 18px;font-size:14.5px;}
+  }
+</style>
+    <script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top" aria-label="91短视频网页版 首页">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M9 6l10 6-10 6z" fill="#fff"/></svg>
+      </span>
+      91短视频网页版
+    </a>
+    <nav class="main" aria-label="主导航">
+      <a href="#features">网页端特点</a>
+      <a href="#channels">内容分类</a>
+      <a href="#howto">打开方式</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">无需安装 · 浏览器直接打开</span>
+        <h1>91短视频网页版</h1>
+        <p class="lead">用浏览器打开网页就能浏览短视频内容，手机、平板与电脑通用。不必下载客户端，页面按分类组织内容，方便快速找到想看的片段，也便于控制使用时间。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#channels">浏览内容分类</a>
+          <a class="btn btn-ghost" href="#howto">了解打开方式</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="screen">
+          <div class="top"><i></i><i></i><i></i></div>
+          <div class="frame">
+            <div class="play">
+              <svg viewBox="0 0 24 24"><path d="M9 6l10 6-10 6z" fill="#ff5a3c"/></svg>
+            </div>
+          </div>
+          <div class="meta"><span class="pill"></span><span class="pill short"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">网页端特点</span>
+        <h2>91短视频网页版适合什么样的浏览场景</h2>
+        <p>网页形态的核心价值在于轻量与通用。下面三点是访客在使用网页版时最常关注的方面。</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M9 17h6"/></svg></div>
+          <h3>打开即用，不占存储</h3>
+          <p>91短视频网页版通过浏览器访问，无需在设备上安装额外程序，也不长期占用本地空间。换一台设备登录同一网络环境，操作习惯基本一致。</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8"/></svg></div>
+          <h3>大小屏同一套页面</h3>
+          <p>页面宽度随视口自适应，手机竖屏时内容单列排布，电脑横屏时信息密度提高。91短视频网页版在两种屏幕上的阅读顺序保持一致。</p>
+        </article>
+        <article class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
+          <h3>按分类找内容更省时</h3>
+          <p>内容以分类形式组织，先确定想看的方向再进入浏览，比无序翻找更节省时间。这也是不少访客选择91短视频网页版而非随意搜索的原因。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHANNELS -->
+  <section id="channels">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">内容分类</span>
+        <h2>常见的内容方向</h2>
+        <p>分类用于帮助访客快速定位兴趣范围。点击下方标签可切换当前查看的方向，标签仅作筛选提示，具体内容以页面实际呈现为准。</p>
+      </div>
+      <div class="cats" role="group" aria-label="内容分类筛选">
+        <button class="cat active" type="button" data-cat="推荐">推荐</button>
+        <button class="cat" type="button" data-cat="生活">生活</button>
+        <button class="cat" type="button" data-cat="搞笑">搞笑</button>
+        <button class="cat" type="button" data-cat="影视">影视</button>
+        <button class="cat" type="button" data-cat="音乐">音乐</button>
+        <button class="cat" type="button" data-cat="知识">知识</button>
+        <button class="cat" type="button" data-cat="运动">运动</button>
+      </div>
+      <p class="cat-note" id="catNote">当前查看方向：推荐</p>
+    </div>
+  </section>
+
+  <!-- HOWTO -->
+  <section id="howto">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">打开方式</span>
+        <h2>三步开始浏览</h2>
+        <p>网页版的使用流程很短，主要成本在于找到合适的入口与控制浏览节奏。</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <h3>选择浏览器</h3>
+          <p>手机端建议使用系统自带浏览器或主流第三方浏览器，电脑端使用常见桌面浏览器均可。保持浏览器为较新版本，页面显示更稳定。</p>
+        </div>
+        <div class="step">
+          <h3>输入网址并打开</h3>
+          <p>在地址栏输入入口地址后访问，页面加载完成即可看到内容分区。若网络较慢，可稍等片刻让首屏资源加载完毕再操作。</p>
+        </div>
+        <div class="step">
+          <h3>按需浏览与控制时长</h3>
+          <p>进入分类或推荐区域后开始浏览，建议设定一个大概的浏览时长。91短视频网页版不要求额外安装，随时关闭标签页即可结束使用。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DETAIL -->
+  <section id="detail">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">使用要点</span>
+        <h2>网页浏览时值得注意的几件事</h2>
+      </div>
+      <div class="two-col">
+        <div>
+          <h3>网络与加载</h3>
+          <p>短视频对网络带宽有一定要求。使用移动数据浏览时，画面清晰度与加载速度会受信号影响；切换到稳定的无线网络后，通常能获得更连贯的播放体验。</p>
+          <p>如果页面长时间空白，可先刷新一次，再检查浏览器是否开启了过强的拦截插件。部分插件会阻止页面脚本运行，导致91短视频网页版的内容区域无法正常显示。</p>
+        </div>
+        <div>
+          <h3>浏览节奏与内容判断</h3>
+          <p>短视频内容更新快、单条时长短，容易在不知不觉中延长使用时间。建议在开始前明确目的，例如只看某一分类的几条内容，结束后直接关闭页面。</p>
+          <p>对来源不明的链接与外链应保持谨慎，不随意填写个人信息。91短视频网页版本身是浏览入口，遇到要求额外授权或跳转第三方程序的提示时，先判断是否必要再决定。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">常见问题</span>
+        <h2>访客问得较多的几个问题</h2>
+      </div>
+      <div class="qa">
+        <details open>
+          <summary>91短视频网页版需要下载安装吗？</summary>
+          <p>不需要。网页版通过浏览器访问，直接在地址栏输入网址即可打开。是否提供客户端属于另一个问题，与网页版的浏览方式无关。</p>
+        </details>
+        <details>
+          <summary>手机上打开和电脑上打开有什么区别？</summary>
+          <p>页面会根据屏幕宽度自动调整布局。手机端为单列排布，字号与按钮更适合触控；电脑端信息密度更高，适合同时查看多个分类。功能入口保持一致。</p>
+        </details>
+        <details>
+          <summary>页面加载不出来怎么办？</summary>
+          <p>先确认网络连接正常，然后刷新页面。若仍无改善，可更换浏览器或暂时关闭拦截类插件后重试。多数加载问题与网络环境和浏览器设置有关。</p>
+        </details>
+        <details>
+          <summary>如何减少无目的的浏览？</summary>
+          <p>进入前先选定一个分类，设定大概时长，结束后关闭标签页。把入口放在收藏夹而不是首页快捷方式，也能在一定程度上减少随手打开的次数。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="foot-brand">
+      91短视频网页版
+      <span>浏览器直接访问的短视频浏览入口，页面内容按分类组织，适配手机与电脑屏幕。</span>
+    </div>
+    <nav class="foot-links" aria-label="页尾导航">
+      <a href="#features">网页端特点</a>
+      <a href="#channels">内容分类</a>
+      <a href="#howto">打开方式</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <div class="copy">© 2024 91短视频网页版 · 页面内容仅用于介绍网页版浏览方式与使用要点。</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var cats = document.querySelectorAll('.cat');
+    var note = document.getElementById('catNote');
+    cats.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        cats.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        note.textContent = '当前查看方向：' + btn.dataset.cat;
+      });
+    });
+  })();
+</script>
+</body>
+</html>
